@@ -5,10 +5,10 @@ export const typeORMConfig: TypeOrmModuleOptions = {
   host: 'localhost',
   port: 5432,
   username: 'postgres',
-  password: 'postgres',
-  database: 'board-app',
+  password: 'postgres0115',
+  database: 'Board-app',
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
-  // 테이블 만들기
   synchronize: true,
-  // 테이블과 실제 데이터베이스의 동기화, 즉바뀌면 drop 후 다시 만듬
 };
+// 테이블 만들기
+// 테이블과 실제 데이터베이스의 동기화, 즉바뀌면 drop 후 다시 만듬
