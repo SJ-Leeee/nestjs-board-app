@@ -9,8 +9,8 @@ export class AuthRepository extends Repository<User> {
     super(User, dataSource.createEntityManager());
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<void> {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
     const user = this.create({ ...createUserDto });
-    await this.save(user);
+    return await this.save(user);
   }
 }
