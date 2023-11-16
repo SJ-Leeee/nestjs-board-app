@@ -9,7 +9,6 @@ export class BoardStatusValidationPipe implements PipeTransform {
   readonly StatusOption = [BoardStatus.public, BoardStatus.private];
 
   transform(value: any, metadata: ArgumentMetadata) {
-    value = value.lowerCase();
     if (!this.isStatusValid(value)) {
       throw new BadRequestException();
     }
