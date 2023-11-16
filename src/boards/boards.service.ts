@@ -1,17 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { BoardStatus } from './board-status.enum';
-import { v1 as uuid } from 'uuid';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BoardRepository } from './board.repository';
 import { Board } from './board.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BoardsService {
-  constructor(
-    @InjectRepository(Board)
-    private boardRepository: BoardRepository,
-  ) {}
+  constructor(private boardRepository: BoardRepository) {}
   // getAllBoards(): Board[] {
   //   return this.boards;
   // }
@@ -25,17 +21,12 @@ export class BoardsService {
   //   return board;
   // }
   async getBoardById(id: number): Promise<Board> {
-    const found = await this.boardRepository.findOne(id);
+    const found = await this.boardRepository.findOne({ where: { id } });
     if (!found) throw new NotFoundException('아이디가 없다');
     return found;
   }
-  async createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
-    const board = this.boardRepository.create({
-      ...createBoardDto,
-      status: BoardStatus.public,
-    });
-    await this.boardRepository.save(board);
-    return board;
+  createBoard(createBoardDto: CreateBoardDto): Promise<Board> {
+    return this.boardRepository.createBoard(createBoardDto);
   }
   // deleteBoard(id: string): void {
   //   const found = this.getBoardById(id);
